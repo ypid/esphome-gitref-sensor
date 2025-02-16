@@ -19,7 +19,7 @@ external_components:
 
 text_sensor:
   - platform: git_ref
-    name: "${friendly_name} Git Ref"
+    name: "Git Ref"
     long: true
     all: true
     abbrev: 16

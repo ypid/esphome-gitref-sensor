@@ -8,7 +8,7 @@ esp32:
   board: wemos_d1_mini32
   framework:
     type: arduino
-  
+
 external_components:
   - source: github://RoboMagus/esphome-gitref-sensor
 
@@ -26,7 +26,7 @@ ota:
 
 text_sensor:
   - platform: git_ref
-    name: "${friendly_name} Git Ref"
+    name: "Git Ref"
     long: true
     all: true
     abbrev: 16
