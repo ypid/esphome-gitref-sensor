@@ -4,7 +4,6 @@ import re
 import yaml
 
 from esphome import git, yaml_util, util
-from esphome.config_helpers import read_config_file
 
 from esphome.core import CORE
 from esphome.components import text_sensor
