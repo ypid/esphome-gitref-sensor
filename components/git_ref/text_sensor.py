@@ -66,6 +66,15 @@ def is_config_versioned():
     return git_ls_files == config_path_trimmed
 
 
+def is_superproject_using_git_submodules():
+    GIT_SUBMODULES = git.run_git_command(
+        ["git", "submodule", "status", "--cached"],
+    )
+    _LOGGER.debug("git submodules: %s", GIT_SUBMODULES)
+
+    return GIT_SUBMODULES != ""
+
+
 def get_git_diff(GIT_DIR, cached=False):
     DIFF_COMMAND = ["git", "diff", "--name-only"]
     if cached:
@@ -249,17 +258,22 @@ def produce_git_describe(config):
     if "dirty" in config:
         # COMMAND.append(f"--dirty={config['dirty']}")
         if is_config_versioned():
-            diff_paths = get_git_diff_file_paths(config)
-            config_paths = get_config_file_paths(config)
-            _LOGGER.info(
-                "Checking git Diffs: \n%s\n\nAgainst files in config: \n%s\n",
-                diff_paths,
-                config_paths,
-            )
-            for file in config_paths:
-                if file in diff_paths:
-                    dirty_postfix = config["dirty"]
-                    _LOGGER.warning("Config dirty: '%s' has changes", file)
+            if is_superproject_using_git_submodules():
+                # Git submodules are involved. Using simplified dirty status
+                # that does not check what files are actually used.
+                COMMAND.append(f"--dirty={config['dirty']}")
+            else:
+                diff_paths = get_git_diff_file_paths(config)
+                config_paths = get_config_file_paths(config)
+                _LOGGER.info(
+                    "Checking git Diffs: \n%s\n\nAgainst files in config: \n%s\n",
+                    diff_paths,
+                    config_paths,
+                )
+                for file in config_paths:
+                    if file in diff_paths:
+                        dirty_postfix = config["dirty"]
+                        _LOGGER.warning("Config dirty: '%s' has changes", file)
         else:
             _LOGGER.warning("Config File '%s' is unversioned!", CORE.config_path)
             dirty_postfix = config["unversioned"]

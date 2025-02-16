@@ -44,6 +44,7 @@ All of them are **optional**.
 - **unversioned** (String, default=`-UNVERSIONED`): Suffix to append when the device config file is not tracked by Git.
 
 ### Dirty parsing
+
 When using the `dirty` option, _only_ **tracked** files that are relevant for the configuration are considered!
   
 This includes the following:
@@ -55,3 +56,4 @@ This includes the following:
 
 If there are uncommitted changes to any of these files, the provided `dirty` suffix will be added to the `git describe` output.
 
+When git submodules are included, the detection which files are actually used is currently not implemented and dirty is reporeted if any file or even a file in a git submodules has uncommitted changes.
