@@ -36,6 +36,7 @@ All of them are **optional**.
 
 - **abbrev** (Int): Instead of using the default number of hexadecimal digits (which will vary according to the number of objects in the repository with a default of 7) of the abbreviated object name, use <n> digits, or as many digits as needed to form a unique object name. An <n> of 0 will suppress long format, only showing the closest tag.
 - **all** (Boolean): Instead of using only the annotated tags, use any ref found in refs/ namespace. This option enables matching any known branch, remote-tracking branch, or lightweight tag.
+- **always** (Boolean): Show uniquely abbreviated commit object as fallback. Useful to avoid the "No names found, cannot describe anything." error in case no git tag exists.
 - **broken** (String): Describe the state of the working tree. If a repository is corrupt and Git cannot determine if there is local modification, Git will error out, unless ‘--broken’ is given, which appends the suffix provided by this option instead.
 - **commit-ish** (String): Commit-ish object names to describe. Defaults to HEAD if omitted.
 - **dirty** (String): Describe the state of the working tree[<sup>[1]</sup>](#dirty-parsing). If the working tree has local modifications the suffix provided by this option is appended to it.

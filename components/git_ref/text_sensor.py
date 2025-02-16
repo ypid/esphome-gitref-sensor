@@ -36,6 +36,7 @@ CONFIG_SCHEMA = (
             cv.Optional("all", default=False): cv.boolean,
             cv.Optional("tags", default=False): cv.boolean,
             cv.Optional("long", default=False): cv.boolean,
+            cv.Optional("always", default=False): cv.boolean,
             cv.Optional("abbrev"): cv.positive_int,
         }
     )
@@ -238,6 +239,8 @@ def produce_git_describe(config):
         COMMAND.append("--tags")
     if config.get("long", False):
         COMMAND.append("--long")
+    if config.get("always", False):
+        COMMAND.append("--always")
 
     if "abbrev" in config:
         COMMAND.append(f"--abbrev={config['abbrev']}")
