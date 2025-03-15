@@ -2,6 +2,7 @@
 
 #include "esphome/core/helpers.h"
 #include "esphome/core/component.h"
+#include "esphome/core/log.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 
 namespace esphome {
@@ -33,5 +34,5 @@ class GitRefTextSensor : public text_sensor::TextSensor, public PollingComponent
   static constexpr const char * TAG = "GitRefSensor";
 };
 
-}  // namespace jga25_371_cover
+}  // namespace git_ref
 }  // namespace esphome
